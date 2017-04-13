@@ -95,17 +95,17 @@ public class OOPSimpleProject extends JFrame {
 				// 円オブジェクトの生成
 				Circle circle = new Circle();
 
-				int x = (int) (Math.random()*500);
-				int y = (int) (Math.random()*500);
+				int x = getRandomValue(500);
+				int y = getRandomValue(500);
 				circle.setPosition(x, y);
 
-				int width = (int)(Math.random()*300);
-				int height = (int)(Math.random()*300);
+				int width = getRandomValue(300);
+				int height = getRandomValue(300);
 				circle.setSize(width, height);
 
-				int r = (int)(Math.random()*256);
-				int g = (int)(Math.random()*256);
-				int b = (int)(Math.random()*256);
+				int r = getRandomValue(256);
+				int g = getRandomValue(256);
+				int b = getRandomValue(256);
 				circle.setColor(new Color(r,g,b));
 
 				// 円オブジェクトを設定
@@ -127,17 +127,17 @@ public class OOPSimpleProject extends JFrame {
 				// 四角形オブジェクトの生成
 				Square square = new Square();
 
-				int x = (int) (Math.random()*500);
-				int y = (int) (Math.random()*500);
+				int x = getRandomValue(500);
+				int y = getRandomValue(500);
 				square.setPosition(x, y);
 
-				int width = (int)(Math.random()*300);
-				int height = (int)(Math.random()*300);
+				int width = getRandomValue(300);
+				int height = getRandomValue(300);
 				square.setSize(width, height);
 
-				int r = (int)(Math.random()*256);
-				int g = (int)(Math.random()*256);
-				int b = (int)(Math.random()*256);
+				int r = getRandomValue(256);
+				int g = getRandomValue(256);
+				int b = getRandomValue(256);
 				square.setColor(new Color(r,g,b));
 
 				// 四角形オブジェクトを設定
@@ -165,6 +165,14 @@ public class OOPSimpleProject extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * 0から引数の値までの間をランダムに返すメソッド
+	 * @param maxValue
+	 * @return
+	 */
+	private int getRandomValue(int maxValue) {
+		return (int)(Math.random()*maxValue);
+	}
 
 	/**
 	 * エントリポイント
