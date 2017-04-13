@@ -2,9 +2,10 @@ package jp.co.arsware.oopsample;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
-import jp.co.arsware.oopsample.shapes.Circle;
-import jp.co.arsware.oopsample.shapes.Square;
+import jp.co.arsware.oopsample.shapes.Shape;
 
 /**
  * キャンバスクラス
@@ -13,52 +14,41 @@ import jp.co.arsware.oopsample.shapes.Square;
  */
 public class MyCanvas extends Canvas {
 
-	/** 円 */
-	Circle circle;
+	/** 図形リスト */
+	List<Shape> shapeList;
 
-	/** 四角形 */
-	Square square;
 
 	/**
 	 * コンストラクタ
 	 */
 	public MyCanvas() {
-		circle = null;
-		square = null;
+		shapeList = new ArrayList<Shape>();
 	}
 
 	/**
-	 * 円オブジェクトの追加
-	 * @param c
+	 * 図形オブジェクトの追加
+	 * @param shape
 	 */
-	void setCircle(Circle c) {
-		circle = c;
+	void addShape(Shape shape) {
+		shapeList.add(shape);
 	}
 
 	/**
-	 * 四角形オブジェクトの追加
-	 * @param c
+	 * 図形の全削除
 	 */
-	public void setSquare(Square s) {
-		square = s;
-	}
-
 	public void clear() {
-		circle = null;
-		square = null;
+		shapeList.clear();
 	}
 
-
+	/**
+	 * 描画
+	 * @param g
+	 */
 	@Override
 	public void paint(Graphics g) {
-		// 円の描画
-		if(circle != null) {
-			circle.render(g);
-		}
-
-		// 四角形の描画
-		if(square != null) {
-			square.render(g);
+		// 図形の描画
+		for(Shape shape : shapeList) {
+			shape.render(g);
 		}
 	}
 }

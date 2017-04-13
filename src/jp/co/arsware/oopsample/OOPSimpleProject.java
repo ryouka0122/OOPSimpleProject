@@ -11,7 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import jp.co.arsware.oopsample.shapes.Circle;
+import jp.co.arsware.oopsample.shapes.Shape;
 import jp.co.arsware.oopsample.shapes.Square;
+import jp.co.arsware.oopsample.shapes.Triangle;
 
 public class OOPSimpleProject extends JFrame {
 
@@ -95,53 +97,47 @@ public class OOPSimpleProject extends JFrame {
 				// 円オブジェクトの生成
 				Circle circle = new Circle();
 
-				int x = getRandomValue(500);
-				int y = getRandomValue(500);
-				circle.setPosition(x, y);
+				// 初期化と追加
+				setShape(circle);
 
-				int width = getRandomValue(300);
-				int height = getRandomValue(300);
-				circle.setSize(width, height);
-
-				int r = getRandomValue(256);
-				int g = getRandomValue(256);
-				int b = getRandomValue(256);
-				circle.setColor(new Color(r,g,b));
-
-				// 円オブジェクトを設定
-				canvas.setCircle(circle);
 				// キャンバスを再描画
 				canvas.repaint();
 			}
 		});
 		pnlButtons.add(btnCircle);
 
-
 		// 四角形作成ボタン
 		btnSquare = new JButton("Square");
 		btnSquare.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		btnSquare.addActionListener(new ActionListener() {
-
+			// 四角形作成ボタン押下イベント
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// 四角形オブジェクトの生成
 				Square square = new Square();
 
-				int x = getRandomValue(500);
-				int y = getRandomValue(500);
-				square.setPosition(x, y);
+				// 初期化と追加
+				setShape(square);
 
-				int width = getRandomValue(300);
-				int height = getRandomValue(300);
-				square.setSize(width, height);
+				// キャンバスを再描画
+				canvas.repaint();
+			}
+		});
+		pnlButtons.add(btnSquare);
 
-				int r = getRandomValue(256);
-				int g = getRandomValue(256);
-				int b = getRandomValue(256);
-				square.setColor(new Color(r,g,b));
+		// 三角形作成ボタン
+		btnSquare = new JButton("Triangle");
+		btnSquare.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		btnSquare.addActionListener(new ActionListener() {
+			// 三角形作成ボタン押下イベント
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// 三角形オブジェクトの生成
+				Triangle triangle = new Triangle();
 
-				// 四角形オブジェクトを設定
-				canvas.setSquare(square);
+				// 初期化と追加
+				setShape(triangle);
+
 				// キャンバスを再描画
 				canvas.repaint();
 			}
@@ -172,6 +168,32 @@ public class OOPSimpleProject extends JFrame {
 	 */
 	private int getRandomValue(int maxValue) {
 		return (int)(Math.random()*maxValue);
+	}
+
+	/**
+	 * 図形の初期化とキャンバスへの追加
+	 * @param shape
+	 */
+	private void setShape(Shape shape) {
+
+		// 場所の設定
+		int x = getRandomValue(500);
+		int y = getRandomValue(500);
+		shape.setPosition(x, y);
+
+		// サイズの設定
+		int width = getRandomValue(300);
+		int height = getRandomValue(300);
+		shape.setSize(width, height);
+
+		// カラーの設定
+		int r = getRandomValue(256);
+		int g = getRandomValue(256);
+		int b = getRandomValue(256);
+		shape.setColor(new Color(r,g,b));
+
+		// 図形オブジェクトを設定
+		canvas.addShape(shape);
 	}
 
 	/**
