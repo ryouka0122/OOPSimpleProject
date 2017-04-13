@@ -58,6 +58,6 @@ public abstract class Shape {
 	 * 描画
 	 * @param g
 	 */
-	abstract void render(Graphics g);
+	abstract public void render(Graphics g);
 
 }
