@@ -1,11 +1,17 @@
 package jp.co.arsware.oopsample;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import jp.co.arsware.oopsample.shapes.Circle;
 
 public class OOPSimpleProject extends JFrame {
 
@@ -23,6 +29,9 @@ public class OOPSimpleProject extends JFrame {
 
 	/** 四角形生成用ボタン */
 	JButton btnSquare;
+
+	/** キャンバス */
+	MyCanvas canvas;
 
 	/**
 	 * コンストラクタ
@@ -56,6 +65,7 @@ public class OOPSimpleProject extends JFrame {
 		pnlCanvas.setBounds(200, 0, 500, 500);	// キャンバスを置く場所と大きさを決める
 		add(pnlCanvas);		// ウィンドウにパネルを配置
 
+
 		// ------------------------------------------------
 		// ボタンの生成とパネルへの配置
 
@@ -63,16 +73,68 @@ public class OOPSimpleProject extends JFrame {
 		btnClear = new JButton("Clear");
 		btnClear.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		pnlButtons.add(btnClear);
+		btnClear.addActionListener(new ActionListener() {
+			// 削除ボタン押下イベント
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// キャンバスに設定した情報を綺麗にする
+				canvas.clear();
+
+				// キャンバス再描画
+				canvas.repaint();
+			}
+		});
 
 		// 円作成ボタン
 		btnCircle = new JButton("Circle");
 		btnCircle.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		btnCircle.addActionListener(new ActionListener() {
+			// 円作成ボタン押下イベント
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// 円オブジェクトの生成
+				Circle circle = new Circle();
+
+				int x = (int) (Math.random()*500);
+				int y = (int) (Math.random()*500);
+				circle.setPosition(x, y);
+
+				int width = (int)(Math.random()*300);
+				int height = (int)(Math.random()*300);
+				circle.setSize(width, height);
+
+				int r= (int)(Math.random()*256);
+				int g= (int)(Math.random()*256);
+				int b = (int)(Math.random()*256);
+				circle.setColor(new Color(r,g,b));
+
+				// 円オブジェクトを設定
+				canvas.setCircle(circle);
+				// キャンバスを再描画
+				canvas.repaint();
+			}
+		});
 		pnlButtons.add(btnCircle);
+
 
 		// 四角形作成ボタン
 		btnSquare = new JButton("Square");
 		btnSquare.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		btnSquare.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "処理は未実装だよ");
+			}
+		});
 		pnlButtons.add(btnSquare);
+
+		// ------------------------------------------------
+		// キャンバスの生成
+		canvas = new MyCanvas();
+		canvas.setSize(500, 500);
+		canvas.setBackground(Color.WHITE);	// 背景を白にする
+		pnlCanvas.add(canvas);	// パネルに配置
 
 		// ------------------------------------------------
 		// ウィンドウのサイズの設定
