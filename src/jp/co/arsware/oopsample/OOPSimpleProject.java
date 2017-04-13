@@ -8,10 +8,10 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import jp.co.arsware.oopsample.shapes.Circle;
+import jp.co.arsware.oopsample.shapes.Square;
 
 public class OOPSimpleProject extends JFrame {
 
@@ -103,8 +103,8 @@ public class OOPSimpleProject extends JFrame {
 				int height = (int)(Math.random()*300);
 				circle.setSize(width, height);
 
-				int r= (int)(Math.random()*256);
-				int g= (int)(Math.random()*256);
+				int r = (int)(Math.random()*256);
+				int g = (int)(Math.random()*256);
 				int b = (int)(Math.random()*256);
 				circle.setColor(new Color(r,g,b));
 
@@ -124,7 +124,26 @@ public class OOPSimpleProject extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "処理は未実装だよ");
+				// 四角形オブジェクトの生成
+				Square square = new Square();
+
+				int x = (int) (Math.random()*500);
+				int y = (int) (Math.random()*500);
+				square.setPosition(x, y);
+
+				int width = (int)(Math.random()*300);
+				int height = (int)(Math.random()*300);
+				square.setSize(width, height);
+
+				int r = (int)(Math.random()*256);
+				int g = (int)(Math.random()*256);
+				int b = (int)(Math.random()*256);
+				square.setColor(new Color(r,g,b));
+
+				// 四角形オブジェクトを設定
+				canvas.setSquare(square);
+				// キャンバスを再描画
+				canvas.repaint();
 			}
 		});
 		pnlButtons.add(btnSquare);
