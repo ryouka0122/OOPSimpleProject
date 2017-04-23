@@ -60,4 +60,19 @@ public abstract class Shape {
 	 */
 	abstract public void render(Graphics g);
 
+	/**
+	 * ヒットテスト
+	 * @param canvasPosX
+	 * @param canvasPosY
+	 * @return
+	 */
+	abstract public boolean hittest(int canvasPosX, int canvasPosY);
+
+
+	@Override
+	public String toString() {
+		return String.format("(%3d, %3d)[%3d, %3d], %s", posX, posY, width, height, surfaceColor.toString());
+	}
+
+
 }

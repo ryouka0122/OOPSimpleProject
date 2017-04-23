@@ -51,4 +51,20 @@ public class MyCanvas extends Canvas {
 			shape.render(g);
 		}
 	}
+
+	/**
+	 * 指定された座標にある図形を返すメソッド
+	 * @param x
+	 * @param y
+	 * @return なければ，null
+	 */
+	public Shape getShape(int x, int y) {
+		for(Shape shape : shapeList) {
+			// ヒットテスト
+			if(shape.hittest(x, y)) {
+				return shape;
+			}
+		}
+		return null;
+	}
 }

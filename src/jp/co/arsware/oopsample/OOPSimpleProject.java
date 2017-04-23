@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -149,6 +151,55 @@ public class OOPSimpleProject extends JFrame {
 		canvas = new MyCanvas();
 		canvas.setSize(500, 500);
 		canvas.setBackground(Color.WHITE);	// 背景を白にする
+		canvas.addMouseListener(new MouseListener() {
+
+			/**
+			 * マウスのボタンを離した時
+			 */
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				//System.out.println("mouseReleased:" + e.getX() + "," + e.getY());
+			}
+
+			/**
+			 * マウスのボタンを押した時
+			 */
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Shape shape = canvas.getShape(e.getX(), e.getY());
+				String coord = String.format("(%3d, %3d)", e.getX(), e.getY());
+				if(shape==null) {
+					System.out.println(coord + "ヒットしませんでした");
+				}else{
+					System.out.println(coord + "ヒットしました("+shape.getClass().getSimpleName()+")[" + shape + "]");
+				}
+			}
+
+			/**
+			 * カーソルがキャンバスから出た時
+			 */
+			@Override
+			public void mouseExited(MouseEvent e) {
+				//System.out.println("mouseExited:" + e.getX() + "," + e.getY());
+			}
+
+			/**
+			 * カーソルがキャンバスに入った時
+			 */
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				//System.out.println("mouseEntered:" + e.getX() + "," + e.getY());
+			}
+
+			/**
+			 * マウスを押す＋離すを行った時
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//System.out.println("mouseClicked:" + e.getX() + "," + e.getY());
+			}
+		});
+
 		pnlCanvas.add(canvas);	// パネルに配置
 
 		// ------------------------------------------------

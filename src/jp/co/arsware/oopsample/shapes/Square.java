@@ -19,4 +19,18 @@ public class Square extends Shape {
 		g.fillRect(posX, posY, width, height);
 	}
 
+	@Override
+	public boolean hittest(int canvasPosX, int canvasPosY) {
+		// 矩形範囲の内外判定
+		// 左側と右側のチェック（X座標テスト）
+		if(canvasPosX < posX || canvasPosX >= (posX+width)) {
+			return false;
+		}
+		// 上側と下側のチェック（Y座標テスト）
+		if(canvasPosY < posY || canvasPosY >= (posY+height)) {
+			return false;
+		}
+		return true;
+	}
+
 }
