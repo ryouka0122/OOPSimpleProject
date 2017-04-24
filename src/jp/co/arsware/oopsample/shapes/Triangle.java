@@ -46,11 +46,10 @@ public class Triangle extends Shape {
 		ptX[2] = posX;
 		ptY[2] = posY + height;
 
-		/** 実装中
 		HitTestResult result = isContains(canvasPosX, canvasPosY, ptX, ptY, 3);
 		return (result==HitTestResult.ONBOUNDS || result==HitTestResult.INSIDE);
-		 */
-		return false;
+
+		//return false;
 	}
 
 	/**
@@ -75,9 +74,8 @@ public class Triangle extends Shape {
 	 */
 	private HitTestResult isContains(int x, int y, int[] ptX, int[] ptY, int nVertex) {
 		// 判定用変数
-		int nDirSign = 0;
-
-		// 辺上にあるときの判定
+		int nDirPositive = 0;
+		int nDirNegative = 0;
 		int onBounds = 0;
 
 		// 各頂点を中心に計算する
@@ -90,80 +88,36 @@ public class Triangle extends Shape {
 			int px = x - ptX[i];
 			int py = y - ptY[i];
 
-			// 辺と点の位置関係を内積で計算
-			int theta = vx * px + vy * py;
+			// 辺と点の位置関係を外積で計算
+			int theta = vx * py - vy * px;
 
 			if(theta == 0) {
 				// 0のときは点が辺上にある
 				onBounds += 1;
 			}else if(theta > 0) {
-				// 正の数のとき加算
-				nDirSign += 1;
+				// 正の数のとき
+				nDirPositive += 1;
 			}else{
-				// 負の数のとき減算
-				nDirSign -= 1;
+				// 負の数のとき
+				nDirNegative += 1;
 			}
 		}
 
-		// 負数を正数に変換
-		if(nDirSign<0) {
-			nDirSign *= -1;
-		}
-
 		// 境界線上判定
-		if(onBounds > 0 && (onBounds+nDirSign)==nVertex) {
-			return HitTestResult.ONBOUNDS;
-		}
-
-		// 頂点数より少ない時外側
-		if(nDirSign<nVertex) {
-			return HitTestResult.OUTSIDE;
+		if(onBounds > 0) {
+			if( (nDirPositive-nDirNegative)==nVertex ) {
+				return HitTestResult.ONBOUNDS;
+			}else{
+				return HitTestResult.OUTSIDE;
+			}
 		}else{
-			return HitTestResult.INSIDE;
+			// 頂点数より少ない時外側
+			if( nDirPositive == 0 || nDirNegative == 0 ) {
+				return HitTestResult.INSIDE;
+			}else{
+				return HitTestResult.OUTSIDE;
+			}
 		}
-
-
-
-		/*
-		// 各辺のベクトル
-		int v1x = ptX[0]-ptX[2],
-			v1y = ptY[0]-ptY[2],
-			v2x = ptX[1]-ptX[0],
-			v2y = ptY[1]-ptY[0],
-			v3x = ptX[2]-ptX[1],
-			v3y = ptY[2]-ptY[1];
-
-		// 各頂点から判定座標に向けてのベクトル
-		int p1x = x-ptX[2],
-			p1y = y-ptY[2],
-			p2x = x-ptX[0],
-			p2y = y-ptY[0],
-			p3x = x-ptX[1],
-			p3y = y-ptY[1];
-
-		// 判定値の計算（ベクトルの内積を使って，左右判定値を生成）
-		int theta1 = v1x * p1x + v1y * p1y;
-		int theta2 = v2x * p2x + v2y * p2y;
-		int theta3 = v3x * p3x + v3y * p3y;
-
-		//内外判定
-		if(theta1<0 && theta2<0 && theta3<0) {
-			// すべての符号が同じ時，内側
-			return HitTestResult.INSIDE;
-		}else if(theta1>0 && theta2>0 && theta3>0) {
-			// すべての符号が同じ時，内側
-			return HitTestResult.INSIDE;
-		}else if(theta1==0 || theta2==0 || theta3==0) {
-			// いずれかが0のとき境界線上
-			return HitTestResult.ONBOUNDS;
-		}else{
-			// 上記を満たさない場合，外側
-			return HitTestResult.OUTSIDE;
-		}
-		*/
 	}
-
-
-
 
 }
