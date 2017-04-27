@@ -19,4 +19,14 @@ public class Square extends Shape {
 		g.fillRect(posX, posY, width, height);
 	}
 
+	@Override
+	protected Shape cloneShape() {
+		return new Square();
+	}
+
+	@Override
+	public String getType() {
+		return  ShapeType.SQUARE.getType();
+	}
+
 }

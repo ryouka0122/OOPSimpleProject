@@ -35,6 +35,14 @@ public abstract class Shape {
 		posY = y;
 	}
 
+	public int getX() {
+		return posX;
+	}
+
+	public int getY() {
+		return posY;
+	}
+
 	/**
 	 * 大きさの設定
 	 * @param w
@@ -45,6 +53,14 @@ public abstract class Shape {
 		height = h;
 	}
 
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
 	/**
 	 * カラーの設定
 	 * @param color
@@ -53,6 +69,9 @@ public abstract class Shape {
 		surfaceColor = color;
 	}
 
+	public Color getColor() {
+		return surfaceColor;
+	}
 
 	/**
 	 * 描画
@@ -60,4 +79,32 @@ public abstract class Shape {
 	 */
 	abstract public void render(Graphics g);
 
+	/**
+	 * 図形の複製
+	 * @return
+	 */
+	public Shape duplicate() {
+		Shape shape = cloneShape();
+		shape.posX = this.posX;
+		shape.posY = this.posY;
+		shape.width = this.width;
+		shape.height = this.height;
+		shape.surfaceColor = new Color(
+				this.surfaceColor.getRed()
+				,this.surfaceColor.getGreen()
+				,this.surfaceColor.getBlue());
+		return shape;
+	}
+
+	/**
+	 * 図形の生成
+	 * @return
+	 */
+	abstract protected Shape cloneShape();
+
+	/**
+	 * 図形の種類の取得
+	 * @return
+	 */
+	abstract public String getType();
 }

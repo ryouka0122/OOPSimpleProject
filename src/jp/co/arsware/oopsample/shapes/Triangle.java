@@ -33,4 +33,14 @@ public class Triangle extends Shape {
 		g.fillPolygon(ptX, ptY, 3);
 	}
 
+	@Override
+	protected Shape cloneShape() {
+		return new Triangle();
+	}
+
+	@Override
+	public String getType() {
+		return  ShapeType.TRIANGLE.getType();
+	}
+
 }
