@@ -10,10 +10,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import jp.co.arsware.oopsample.shapes.Circle;
-import jp.co.arsware.oopsample.shapes.Shape;
-import jp.co.arsware.oopsample.shapes.Square;
-import jp.co.arsware.oopsample.shapes.Triangle;
+import jp.co.arsware.oopsample.factories.CircleFactory;
+import jp.co.arsware.oopsample.factories.ImageFactory;
+import jp.co.arsware.oopsample.factories.SquareFactory;
+import jp.co.arsware.oopsample.factories.TriangleFactory;
 
 public class OOPSimpleProject extends JFrame {
 
@@ -67,6 +67,12 @@ public class OOPSimpleProject extends JFrame {
 		pnlCanvas.setBounds(200, 0, 500, 500);	// キャンバスを置く場所と大きさを決める
 		add(pnlCanvas);		// ウィンドウにパネルを配置
 
+		// ------------------------------------------------
+		// キャンバスの生成
+		canvas = new MyCanvas();
+		canvas.setSize(500, 500);
+		canvas.setBackground(Color.WHITE);	// 背景を白にする
+		pnlCanvas.add(canvas);	// パネルに配置
 
 		// ------------------------------------------------
 		// ボタンの生成とパネルへの配置
@@ -90,66 +96,27 @@ public class OOPSimpleProject extends JFrame {
 		// 円作成ボタン
 		btnCircle = new JButton("Circle");
 		btnCircle.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
-		btnCircle.addActionListener(new ActionListener() {
-			// 円作成ボタン押下イベント
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// 円オブジェクトの生成
-				Circle circle = new Circle();
-
-				// 初期化と追加
-				setShape(circle);
-
-				// キャンバスを再描画
-				canvas.repaint();
-			}
-		});
+		btnCircle.addActionListener(new ButtonActionListener(canvas, new CircleFactory()));
 		pnlButtons.add(btnCircle);
 
 		// 四角形作成ボタン
 		btnSquare = new JButton("Square");
 		btnSquare.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
-		btnSquare.addActionListener(new ActionListener() {
-			// 四角形作成ボタン押下イベント
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// 四角形オブジェクトの生成
-				Square square = new Square();
-
-				// 初期化と追加
-				setShape(square);
-
-				// キャンバスを再描画
-				canvas.repaint();
-			}
-		});
+		btnSquare.addActionListener(new ButtonActionListener(canvas, new SquareFactory()));
 		pnlButtons.add(btnSquare);
 
 		// 三角形作成ボタン
 		btnSquare = new JButton("Triangle");
 		btnSquare.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
-		btnSquare.addActionListener(new ActionListener() {
-			// 三角形作成ボタン押下イベント
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// 三角形オブジェクトの生成
-				Triangle triangle = new Triangle();
-
-				// 初期化と追加
-				setShape(triangle);
-
-				// キャンバスを再描画
-				canvas.repaint();
-			}
-		});
+		btnSquare.addActionListener(new ButtonActionListener(canvas, new TriangleFactory()));
 		pnlButtons.add(btnSquare);
 
-		// ------------------------------------------------
-		// キャンバスの生成
-		canvas = new MyCanvas();
-		canvas.setSize(500, 500);
-		canvas.setBackground(Color.WHITE);	// 背景を白にする
-		pnlCanvas.add(canvas);	// パネルに配置
+		// 画像作成ボタン
+		btnSquare = new JButton("Image");
+		btnSquare.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		btnSquare.addActionListener(new ButtonActionListener(canvas, new ImageFactory(this)));
+		pnlButtons.add(btnSquare);
+
 
 		// ------------------------------------------------
 		// ウィンドウのサイズの設定
@@ -159,41 +126,6 @@ public class OOPSimpleProject extends JFrame {
 		// ------------------------------------------------
 		// ウィンドウの表示
 		setVisible(true);
-	}
-
-	/**
-	 * 0から引数の値までの間をランダムに返すメソッド
-	 * @param maxValue
-	 * @return
-	 */
-	private int getRandomValue(int maxValue) {
-		return (int)(Math.random()*maxValue);
-	}
-
-	/**
-	 * 図形の初期化とキャンバスへの追加
-	 * @param shape
-	 */
-	private void setShape(Shape shape) {
-
-		// 場所の設定
-		int x = getRandomValue(500);
-		int y = getRandomValue(500);
-		shape.setPosition(x, y);
-
-		// サイズの設定
-		int width = getRandomValue(300);
-		int height = getRandomValue(300);
-		shape.setSize(width, height);
-
-		// カラーの設定
-		int r = getRandomValue(256);
-		int g = getRandomValue(256);
-		int b = getRandomValue(256);
-		shape.setColor(new Color(r,g,b));
-
-		// 図形オブジェクトを設定
-		canvas.addShape(shape);
 	}
 
 	/**
